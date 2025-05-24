@@ -17,12 +17,13 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'DeepTrain server is running' });
 });
 
-// Serve static files from dist directory
-app.use(express.static(join(__dirname, 'dist')));
+// Serve static files from client/public directory (for videos)
+app.use('/videos', express.static(join(__dirname, 'client/public/videos')));
+app.use(express.static(join(__dirname, 'client/public')));
 
-// Handle SPA routing - serve index.html for all non-API routes
+// Serve the main index.html for all routes (SPA)
 app.get('*', (req, res) => {
-  res.sendFile(join(__dirname, 'dist', 'index.html'));
+  res.sendFile(join(__dirname, 'client', 'index.html'));
 });
 
 // Error handling middleware
